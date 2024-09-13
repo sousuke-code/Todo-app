@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import TodoLists from "./components/TodoLists";
+import TodoForm from "./components/TodoForm";
 
 type TodoTypes = {
   id: string;
@@ -13,7 +14,7 @@ type AddTodoType = {
 
 
 function App() {
-  const {register, handleSubmit } = useForm<AddTodoType>();
+  // const {register, handleSubmit } = useForm<AddTodoType>();
   const [todos, setTodos] = useState<TodoTypes[]>([]);
 
   const addTodo = async (event: AddTodoType) => {
@@ -45,13 +46,11 @@ function App() {
 
   return (
     <>
-     <form onSubmit={handleSubmit(addTodo)}>
-        <input {...register("todo")} type="text" />
-        <button type="submit">add</button>
-     </form>
-     {todos.map((todo) => (
-      <p key={todo.id}>{todo.todo}</p>
-     ))}
+      <TodoForm todos ={todos} setTodos={setTodos} />
+      <ul>
+      <TodoLists todos={todos}/>
+      </ul>
+
     </>
   );
 }
